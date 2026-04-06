@@ -31,4 +31,4 @@ jobs:
        - name: terraform Plan
          uses: dflook/terraform-plan@v2
          with:
-           path: Terraform      
+           path: infra      
