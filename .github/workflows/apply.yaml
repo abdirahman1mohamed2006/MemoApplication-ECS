@@ -30,6 +30,6 @@ jobs:
        - name: Terraform apply
          uses: dflook/terraform-apply@v2
          with:
-            path: Terraform
+            path: infra
             auto_approve: true
 
