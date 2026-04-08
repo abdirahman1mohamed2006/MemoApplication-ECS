@@ -7,10 +7,19 @@ resource "aws_security_group" "alb_sg" { # Security Groups : This security group
 resource "aws_vpc_security_group_ingress_rule" "alb_http" {
   security_group_id = aws_security_group.alb_sg.id
   cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 443
+  to_port           = 443
+  ip_protocol       = "tcp"
+}                                                                 
+resource "aws_vpc_security_group_ingress_rule" "alb_http" {      # Meanss anyone can access it from the internet 
+  security_group_id = aws_security_group.alb_sg.id
+  cidr_ipv4         = "0.0.0.0/0"
   from_port         = 80
   to_port           = 80
   ip_protocol       = "tcp"
 }
+
+
 
 resource "aws_vpc_security_group_egress_rule" "alb_all_out" {
   security_group_id = aws_security_group.alb_sg.id
@@ -33,7 +42,7 @@ resource "aws_lb" "test" { # my application load balancers
 
 resource "aws_lb_target_group" "test" { # target group
   name        = "ecs-lb-tg"
-  port        = 80
+  port        = 5230
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
   target_type = "ip"
