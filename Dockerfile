@@ -18,7 +18,7 @@ RUN pnpm run build
 
 
 # BAKEND BUILD
-FROM golang:1.25-alpine3.22 AS backend-build
+FROM golang:1.26.1-alpine3.22 AS backend-build
 
 RUN apk add --no-cache git ca-certificates
 
