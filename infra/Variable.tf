@@ -69,7 +69,7 @@ variable "family" {
 variable "port" {
   description = "Frontend container port"
   type        = number
-  default     = 80
+  default     = 5230
 }
 
 
