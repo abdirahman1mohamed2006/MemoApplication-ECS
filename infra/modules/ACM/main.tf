@@ -1,9 +1,9 @@
-data "aws_route53_zone" "this" { # Imported my hosted zone that was in my conosle
+data "aws_route53_zone" "this" { 
   name         = var.zone_name
   private_zone = false
 }
 
-resource "aws_acm_certificate" "cert" { # creating the cert for my domain 
+resource "aws_acm_certificate" "cert" { 
   domain_name       = var.domain_name
   validation_method = "DNS"
 
@@ -17,7 +17,7 @@ resource "aws_acm_certificate" "cert" { # creating the cert for my domain
 }
 
 
-resource "aws_route53_record" "validation" { # creates the dns record .
+resource "aws_route53_record" "validation" { 
   for_each = {
     for dvo in aws_acm_certificate.cert.domain_validation_options :
     dvo.domain_name => {
@@ -36,7 +36,7 @@ resource "aws_route53_record" "validation" { # creates the dns record .
 
 
 
-resource "aws_acm_certificate_validation" "confirmation" { # confirm the cert is validated .
+resource "aws_acm_certificate_validation" "confirmation" { 
   certificate_arn         = aws_acm_certificate.cert.arn
   validation_record_fqdns = [for record in aws_route53_record.validation : record.fqdn]
 }

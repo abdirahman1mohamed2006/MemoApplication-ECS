@@ -1,4 +1,4 @@
-resource "aws_ecr_repository" "ecsmainrepo" { # creates the repo . 
+resource "aws_ecr_repository" "ecsmainrepo" { 
   name                 = var.repo_name
   image_tag_mutability = "MUTABLE"
 
@@ -11,7 +11,7 @@ resource "aws_ecr_repository" "ecsmainrepo" { # creates the repo .
   }
 }
 
-resource "aws_ecr_lifecycle_policy" "ecslife" { # Removes any images in repo
+resource "aws_ecr_lifecycle_policy" "ecslife" { 
 
   repository = aws_ecr_repository.ecsmainrepo.name
 

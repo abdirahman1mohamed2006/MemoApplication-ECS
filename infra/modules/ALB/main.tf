@@ -1,4 +1,4 @@
-resource "aws_security_group" "alb_sg" { # Security Groups : This security group is taking in inboud traffic 
+resource "aws_security_group" "alb_sg" { 
   name        = "alb-sg"
   description = "Allow HTTP inbound traffic"
   vpc_id      = var.vpc_id
@@ -11,7 +11,7 @@ resource "aws_vpc_security_group_ingress_rule" "alb_http" {
   to_port           = 443
   ip_protocol       = "tcp"
 }                                                                 
-resource "aws_vpc_security_group_ingress_rule" "alb_httpinternet" {      # Meanss anyone can access it from the internet 
+resource "aws_vpc_security_group_ingress_rule" "alb_httpinternet" {    
   security_group_id = aws_security_group.alb_sg.id
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 80
@@ -28,7 +28,7 @@ resource "aws_vpc_security_group_egress_rule" "alb_all_out" {
 }
 
 
-resource "aws_lb" "test" { # my application load balancers 
+resource "aws_lb" "test" { 
   name               = var.lb_name
   internal           = false
   load_balancer_type = "application"
@@ -40,7 +40,7 @@ resource "aws_lb" "test" { # my application load balancers
   ]
 }
 
-resource "aws_lb_target_group" "test" { # target group
+resource "aws_lb_target_group" "test" { 
   name        = "ecs-lb-tg"
   port        = 5230
   protocol    = "HTTP"
@@ -59,13 +59,13 @@ resource "aws_lb_target_group" "test" { # target group
   }
 }
 
-resource "aws_lb_listener" "https" { # tells the load balancer what to do with the incoming traffic . 
+resource "aws_lb_listener" "https" {  
   load_balancer_arn = aws_lb.test.arn
   port              = 443
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
 
-  certificate_arn = var.certificate_arn # from ACM module
+  certificate_arn = var.certificate_arn 
 
   default_action {
     type             = "forward"

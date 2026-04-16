@@ -1,5 +1,5 @@
 
-resource "aws_security_group" "ecs_sg" { # this security group directs traffic from the load balancer to the target
+resource "aws_security_group" "ecs_sg" { 
   name        = "ecs-sg"
   description = "Allow HTTP inbound traffic from tg to container"
   vpc_id      = var.vpc_id
@@ -19,7 +19,7 @@ resource "aws_vpc_security_group_egress_rule" "ecs_all_out" {
   ip_protocol       = "-1"
 }
 
-# Ecs cluster - This is to ensure the fargate has a place to mananage my service
+
 
 resource "aws_ecs_cluster" "ecs_cluster" {
   name = var.cluster
@@ -55,14 +55,14 @@ resource "aws_ecs_service" "memos_service" {
   ]
 }
 
-# cloudwatch - so my container logs go somehwere 
+
 
 resource "aws_cloudwatch_log_group" "ecs_logs" {
   name              = var.log_group
   retention_in_days = 7
 }
 
-#IAM  execution role so ECS can pull your image from ECR and send longs to the cloudwatch
+
 
 resource "aws_iam_role" "ecs_role" {
   name = "ecs-execution-role"
@@ -88,7 +88,7 @@ resource "aws_iam_role_policy_attachment" "ecs_attach" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
-# Task definition - so ECS Knows which docker image to run , what port to use and how much cpu and memory for it to be given . 
+
 
 resource "aws_ecs_task_definition" "task" {
   depends_on = [aws_cloudwatch_log_group.ecs_logs]
