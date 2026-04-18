@@ -33,31 +33,8 @@ I created a  end-to-end AWS ECS deployment of a  memo application, built using a
 
 ## Repo Structure :
 
-.
-├── .github/
-│ └── workflows/
-│ ├── apply.yml
-│ ├── destroy.yml
-│ ├── plan.yml
-│ └── push.yml
-│
-├── app/
-│ └── Dockerfile
-│
-├── terraform/
-│ ├── modules/
-│ │ ├── acm/
-│ │ ├── alb/
-│ │ ├── ecs/
-│ │ ├── route53/
-│ │ ├── security-grps/
-│ │ └── vpc/
-│ │
-│ ├── main.tf
-│ ├── provider.tf
-│ └── variables.tf
-│
-└── README.md
+
+./ | .github | workflows | apply.yml | destroy.yml | plan.yml | push.yml | app | Dockerfile | terraform | modules | acm/ | alb/ | ecs/ | route53/ | security-grps/ | vpc/ | main.tf | provider.tf | variables.tf | README.md
 
 
 
